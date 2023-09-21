@@ -1,0 +1,22 @@
+<div class="container">
+  <div class="row">
+    <mat-form-field *ngIf="devices.length">
+    <mat-label>Devices</mat-label>
+      <mat-select>
+        <mat-option *ngFor="let device of devices" [value]="device"
+                    (onSelectionChange)="setCurrentDevice(device)">
+          {{device.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field>
+      <input matInput [(ngModel)]="temperature">
+    </mat-form-field>
+  </div>
+  <div class="row">
+    <button mat-raised-button matButton (click)="sendTemperature()">Send new value</button>
+    <button mat-raised-button matButton (click)="genNumAfterInterval()">Start generator</button>
+    <button mat-raised-button matButton (click)="stopSocket()">Stop socket</button>
+  </div>
+</div>
+

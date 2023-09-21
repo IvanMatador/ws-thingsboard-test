@@ -1,0 +1,23 @@
+.container {
+  padding: 20px;
+}
+
+.row {
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  min-width: 100%;
+
+  & mat-form-field {
+    width: calc(50% - 80px);
+  }
+
+  & mat-form-field:not(:last-child) {
+    margin: 20px;
+
+  }
+
+  & mat-form-field:last-child {
+    margin: 20px;
+  }
+}

@@ -1,0 +1,51 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+
+    <script type="text/javascript">
+        function WebSocketAPIExample() {
+            var token = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJpcmF6bmF0b3Zza3lpQHRoaW5nc2JvYXJkLmlvIiwidXNlcklkIjoiOGYwMjY0MjAtNTdjMC0xMWVlLTg5ZjctMTdiZjUzZjY0M2Y0Iiwic2NvcGVzIjpbIlRFTkFOVF9BRE1JTiJdLCJzZXNzaW9uSWQiOiI2NTczZDgxZS05NjY2LTRhNjgtYWQzOS04NTJlMTg4YTlmN2MiLCJpc3MiOiJ0aGluZ3Nib2FyZC5pbyIsImlhdCI6MTY5NTIxOTcwNiwiZXhwIjoxNjk3MDE5NzA2LCJmaXJzdE5hbWUiOiJJdmFuIiwibGFzdE5hbWUiOiJSIiwiZW5hYmxlZCI6dHJ1ZSwicHJpdmFjeVBvbGljeUFjY2VwdGVkIjp0cnVlLCJpc1B1YmxpYyI6ZmFsc2UsInRlbmFudElkIjoiOGQ5MzkxZTAtNTdjMC0xMWVlLTg5ZjctMTdiZjUzZjY0M2Y0IiwiY3VzdG9tZXJJZCI6IjEzODE0MDAwLTFkZDItMTFiMi04MDgwLTgwODA4MDgwODA4MCJ9.gbnSDf64yUA5XczpZ7r3mtOVlc-z57-8yiuzWpXFA1_an6FfTm45AY59LUM0cxuAZHm70fnURPkQ5WMmBTWpjg";
+            var webSocket = new WebSocket("wss://demo.thingsboard.io/api/ws/plugins/telemetry?token=" + token);
+
+            if (token === "YOUR_JWT_TOKEN") {
+                alert("Invalid JWT token!");
+                webSocket.close();
+            }
+            webSocket.onopen = function () {
+                var object = {
+                    tsSubCmds: [
+                        {
+                            entityType: "DEVICE",
+                            entityId: "b03bcaf0-57c0-11ee-89f7-17bf53f643f4",
+                            scope: "LATEST_TELEMETRY",
+                            cmdId: 0
+                        }
+                    ]
+                };
+                var data = JSON.stringify(object);
+                console.log("Message sent... ", Date.now());
+                webSocket.send(data);
+                console.log("Message is sent: " + data, Date.now());
+            };
+
+            webSocket.onmessage = function (event) {
+                var received_msg = event.data;
+                console.log("Message is received: " + received_msg, Date.now());
+                webSocket.close();
+            };
+
+            webSocket.onclose = function (event) {
+                console.log("Connection is closed!");
+            };
+        }
+    </script>
+
+</head>
+<body>
+
+<div id="sse">
+    <a href="javascript:WebSocketAPIExample()">Run WebSocket</a>
+</div>
+
+</body>
+</html>
